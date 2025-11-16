@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wallet - USDT Flash</title>
+    <link rel="stylesheet" href="../css/wallet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css">
+</head>
+<body>
+    <div class="wallet-container">
+        <!-- Header -->
+        <header class="wallet-header">
+            <button class="back-btn" onclick="window.location.href='../index.html'">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <h1>My Wallet</h1>
+            <div class="header-actions">
+                <button class="scan-btn" id="scanBtn">
+                    <i class="fas fa-qrcode"></i>
+                </button>
+                <button class="settings-btn" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-header">
+                <div>
+                    <span class="balance-label">Total Balance</span>
+                    <div class="portfolio-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+2.5%</span>
+                    </div>
+                </div>
+                <button class="eye-btn" id="toggleBalance">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="balance-amount" id="balanceAmount">
+                <span class="amount">0.00</span>
+                <span class="currency">USDT</span>
+            </div>
+            <div class="balance-usd">≈ $<span id="usdAmount">0.00</span></div>
+            
+            <!-- Mini Chart -->
+            <div class="mini-chart">
+                <canvas id="balanceChart"></canvas>
+            </div>
+            
+            <div class="quick-actions">
+                <button class="action-btn deposit-btn" id="depositBtn" disabled style="opacity: 0.5; cursor: not-allowed;">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Deposit</span>
+                </button>
+                <button class="action-btn withdraw-btn" id="withdrawBtn">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>Withdraw</span>
+                </button>
+                <button class="action-btn transfer-btn" id="transferBtn">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Transfer</span>
+                </button>
+                <button class="action-btn swap-btn" id="swapBtn">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Swap</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tokens List -->
+        <div class="tokens-section">
+            <div class="section-header">
+                <h2>Assets</h2>
+                <button class="add-token-btn" id="addTokenBtn">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div class="tokens-list" id="tokensList">
+                <!-- USDT Flash Token -->
+                <div class="token-item" data-token="USDT-FLASH">
+                    <div class="token-icon flash-token">
+                        <img src="../img/usdt_cryptocurrencies_icon_188337.png" alt="USDT Flash">
+                        <span class="flash-badge">⚡</span>
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">USDT Flash <span class="flash-note">(1:1 = USDT)</span></div>
+                        <div class="token-symbol">USDT-F</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- USDT Token -->
+                <div class="token-item" data-token="USDT">
+                    <div class="token-icon">
+                        <img src="../img/6180cdb6-8480-4a3c-a8a9-8a193a89fc5e.png" alt="USDT">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Tether USD</div>
+                        <div class="token-symbol">USDT</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- BTC Token -->
+                <div class="token-item" data-token="BTC">
+                    <div class="token-icon">
+                        <img src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png" alt="BTC" onerror="this.innerHTML='₿'">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Bitcoin</div>
+                        <div class="token-symbol">BTC</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- ETH Token -->
+                <div class="token-item" data-token="ETH">
+                    <div class="token-icon">
+                        <img src="../cryptologos/ethereum-eth-logo.png" alt="ETH">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Ethereum</div>
+                        <div class="token-symbol">ETH</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- BNB Token -->
+                <div class="token-item" data-token="BNB">
+                    <div class="token-icon">
+                        <img src="../cryptologos/binance-coin-bnb-logo.png" alt="BNB">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">BNB</div>
+                        <div class="token-symbol">BNB</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- PEPE Token -->
+                <div class="token-item" data-token="PEPE">
+                    <div class="token-icon">
+                        <img src="https://assets.coingecko.com/coins/images/29850/small/pepe-token.jpeg" alt="PEPE" onerror="this.innerHTML='🐸'">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Pepe</div>
+                        <div class="token-symbol">PEPE</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- DOGE Token -->
+                <div class="token-item" data-token="DOGE">
+                    <div class="token-icon">
+                        <img src="https://assets.coingecko.com/coins/images/5/small/dogecoin.png" alt="DOGE" onerror="this.innerHTML='🐕'">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Dogecoin</div>
+                        <div class="token-symbol">DOGE</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- SHIBA Token -->
+                <div class="token-item" data-token="SHIB">
+                    <div class="token-icon">
+                        <img src="https://assets.coingecko.com/coins/images/11939/small/shiba.png" alt="SHIB" onerror="this.innerHTML='🐶'">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Shiba Inu</div>
+                        <div class="token-symbol">SHIB</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions -->
+        <div class="transactions-section">
+            <div class="section-header">
+                <h2>Recent Transactions</h2>
+                <button class="filter-btn">
+                    <i class="fas fa-filter"></i>
+                </button>
+            </div>
+            <div class="transactions-list" id="transactionsList">
+                <div class="empty-state">
+                    <i class="fas fa-receipt"></i>
+                    <p>No transactions yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div class="modal" id="depositModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>إيداع USDT</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="deposit-steps">
+                <!-- Step 1: Select Network -->
+                <div class="step active" id="step1">
+                    <h3>اختر الشبكة</h3>
+                    <div class="networks-grid">
+                        <div class="network-card" data-network="TRC20">
+                            <img src="../img/TRC 20.png" alt="TRC20">
+                            <div class="network-info">
+                                <span class="network-name">TRC20</span>
+                                <span class="network-fee">USDT Only</span>
+                            </div>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="network-card" data-network="ERC20">
+                            <img src="../cryptologos/ethereum-eth-logo.png" alt="ERC20">
+                            <div class="network-info">
+                                <span class="network-name">ERC20</span>
+                                <span class="network-fee">USDT Only</span>
+                            </div>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="network-card" data-network="BEP20">
+                            <img src="../cryptologos/binance-coin-bnb-logo.png" alt="BEP20">
+                            <div class="network-info">
+                                <span class="network-name">BEP20</span>
+                                <span class="network-fee">USDT Only</span>
+                            </div>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <button class="next-btn" id="nextStep1" disabled>التالي</button>
+                </div>
+
+                <!-- Step 2: Enter Amount -->
+                <div class="step" id="step2">
+                    <button class="back-step-btn" id="backStep2">
+                        <i class="fas fa-arrow-right"></i> رجوع
+                    </button>
+                    <h3>أدخل المبلغ</h3>
+                    <div class="amount-input-wrapper">
+                        <input type="number" id="depositAmount" placeholder="0.00" min="10" step="0.01">
+                        <span class="input-currency">USDT</span>
+                    </div>
+                    <div class="quick-amounts">
+                        <button class="quick-amount" data-amount="50">50</button>
+                        <button class="quick-amount" data-amount="100">100</button>
+                        <button class="quick-amount" data-amount="500">500</button>
+                        <button class="quick-amount" data-amount="1000">1000</button>
+                    </div>
+                    <div class="amount-info">
+                        <div class="info-row">
+                            <span>المبلغ:</span>
+                            <span id="amountDisplay">0.00 USDT</span>
+                        </div>
+                        <div class="info-row">
+                            <span>رسوم الشبكة:</span>
+                            <span id="feeDisplay">0.00 USDT</span>
+                        </div>
+                        <div class="info-row total">
+                            <span>الإجمالي:</span>
+                            <span id="totalDisplay">0.00 USDT</span>
+                        </div>
+                    </div>
+                    <button class="next-btn" id="nextStep2" disabled>التالي</button>
+                </div>
+
+                <!-- Step 3: Deposit Address -->
+                <div class="step" id="step3">
+                    <button class="back-step-btn" id="backStep3">
+                        <i class="fas fa-arrow-right"></i> رجوع
+                    </button>
+                    <h3>عنوان الإيداع</h3>
+                    <div class="qr-code-wrapper">
+                        <div class="qr-code" id="qrCode">
+                            <div class="qr-placeholder">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="address-wrapper">
+                        <input type="text" id="depositAddress" readonly>
+                        <button class="copy-btn" id="copyAddress">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>تحذير هام:</strong>
+                            <p>أرسل فقط USDT على شبكة <span id="selectedNetwork"></span> إلى هذا العنوان</p>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Transaction ID / Hash</label>
+                        <input type="text" id="txHash" placeholder="Enter transaction hash" style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 15px; color: #fff; width: 100%; font-size: 14px;">
+                        <small style="display: block; margin-top: 8px; opacity: 0.7; font-size: 12px;">أدخل معرف المعاملة للتحقق من الإيداع</small>
+                    </div>
+                    <button class="confirm-btn" id="confirmDeposit">تأكيد الإيداع</button>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="step" id="step4">
+                    <div class="success-animation">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>تم استلام طلب الإيداع</h3>
+                    <p class="success-message">سيتم إضافة المبلغ إلى محفظتك بعد التأكيد على الشبكة</p>
+                    <div class="transaction-details">
+                        <div class="detail-row">
+                            <span>الشبكة:</span>
+                            <span id="finalNetwork"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>المبلغ:</span>
+                            <span id="finalAmount"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>TX Hash:</span>
+                            <span id="finalTxHash" style="font-size: 11px; opacity: 0.8;"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>الحالة:</span>
+                            <span class="status pending">تحت المراجعة</span>
+                        </div>
+                    </div>
+                    <button class="done-btn" id="doneBtn">تم</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scan QR Modal -->
+    <div class="modal" id="scanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>مسح رمز QR</h2>
+                <button class="close-modal" onclick="document.getElementById('scanModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="scan-area">
+                <div class="scan-frame">
+                    <i class="fas fa-qrcode"></i>
+                    <p>ضع رمز QR في الإطار</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal" id="withdrawModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>سحب USDT</h2>
+                <button class="close-modal" onclick="document.getElementById('withdrawModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="withdraw-form">
+                <div class="form-group">
+                    <label>العنوان</label>
+                    <input type="text" id="withdrawAddress" placeholder="أدخل عنوان المحفظة">
+                </div>
+                <div class="form-group">
+                    <label>الشبكة</label>
+                    <select id="withdrawNetwork">
+                        <option value="TRC20">TRC20</option>
+                        <option value="ERC20">ERC20</option>
+                        <option value="BEP20">BEP20</option>
+                        <option value="POLYGON">Polygon</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>المبلغ</label>
+                    <input type="number" id="withdrawAmount" placeholder="0.00" min="10">
+                </div>
+                <button class="confirm-btn" id="confirmWithdraw">تأكيد السحب</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transfer Modal -->
+    <div class="modal" id="transferModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تحويل</h2>
+                <button class="close-modal" onclick="document.getElementById('transferModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="transfer-form">
+                <div class="form-group">
+                    <label>إلى</label>
+                    <input type="text" id="transferTo" placeholder="اسم المستخدم أو البريد الإلكتروني">
+                </div>
+                <div class="form-group">
+                    <label>المبلغ</label>
+                    <input type="number" id="transferAmount" placeholder="0.00" min="1">
+                </div>
+                <div class="form-group">
+                    <label>ملاحظة (اختياري)</label>
+                    <textarea id="transferNote" placeholder="أضف ملاحظة..."></textarea>
+                </div>
+                <button class="confirm-btn" id="confirmTransfer">إرسال</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Swap Modal -->
+    <div class="modal" id="swapModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تبديل العملات</h2>
+                <button class="close-modal" onclick="document.getElementById('swapModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="swap-form">
+                <div class="swap-box">
+                    <label>من</label>
+                    <div class="swap-input">
+                        <input type="number" id="swapFromAmount" placeholder="0.00">
+                        <select id="swapFromToken">
+                            <option value="USDT-FLASH">USDT Flash</option>
+                            <option value="USDT">USDT</option>
+                            <option value="BTC">BTC</option>
+                            <option value="ETH">ETH</option>
+                            <option value="BNB">BNB</option>
+                            <option value="PEPE">PEPE</option>
+                            <option value="DOGE">DOGE</option>
+                            <option value="SHIB">SHIB</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="swap-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="swap-box">
+                    <label>إلى</label>
+                    <div class="swap-input">
+                        <input type="number" id="swapToAmount" placeholder="0.00" readonly>
+                        <select id="swapToToken">
+                            <option value="BTC">BTC</option>
+                            <option value="ETH">ETH</option>
+                            <option value="BNB">BNB</option>
+                            <option value="USDT">USDT</option>
+                            <option value="USDT-FLASH">USDT Flash</option>
+                            <option value="PEPE">PEPE</option>
+                            <option value="DOGE">DOGE</option>
+                            <option value="SHIB">SHIB</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="swap-rate">
+                    <span>السعر: </span>
+                    <span id="swapRate">1 USDT = 0.000022 BTC</span>
+                </div>
+                <button class="confirm-btn" id="confirmSwap">تبديل</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>الإعدادات</h2>
+                <button class="close-modal" onclick="document.getElementById('settingsModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item" id="securitySetting">
+                    <div class="setting-info">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>الأمان</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="setting-item" id="notificationSetting">
+                    <div class="setting-info">
+                        <i class="fas fa-bell"></i>
+                        <span>الإشعارات</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="setting-item" id="languageSetting">
+                    <div class="setting-info">
+                        <i class="fas fa-globe"></i>
+                        <span>اللغة</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="setting-item" id="backupSetting">
+                    <div class="setting-info">
+                        <i class="fas fa-key"></i>
+                        <span>النسخ الاحتياطي</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Modal -->
+    <div class="modal" id="securityModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>الأمان</h2>
+                <button class="close-modal" onclick="document.getElementById('securityModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item" id="changePassword">
+                    <div class="setting-info">
+                        <i class="fas fa-lock"></i>
+                        <span>تغيير كلمة المرور</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="setting-item" id="enable2FA">
+                    <div class="setting-info">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>المصادقة الثنائية</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle2FA">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item" id="biometric">
+                    <div class="setting-info">
+                        <i class="fas fa-fingerprint"></i>
+                        <span>بصمة الإصبع</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleBiometric">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>الإشعارات</h2>
+                <button class="close-modal" onclick="document.getElementById('notificationModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>إشعارات البريد</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="emailNotif" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-mobile"></i>
+                        <span>إشعارات الدفع</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="pushNotif" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>إشعارات المعاملات</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="txNotif" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Modal -->
+    <div class="modal" id="languageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>اللغة</h2>
+                <button class="close-modal" onclick="document.getElementById('languageModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item lang-option" data-lang="ar">
+                    <div class="setting-info">
+                        <span>🇸🇦</span>
+                        <span>العربية</span>
+                    </div>
+                    <i class="fas fa-check" style="color: #26a17b;"></i>
+                </div>
+                <div class="setting-item lang-option" data-lang="en">
+                    <div class="setting-info">
+                        <span>🇬🇧</span>
+                        <span>English</span>
+                    </div>
+                    <i class="fas fa-check" style="color: transparent;"></i>
+                </div>
+                <div class="setting-item lang-option" data-lang="fr">
+                    <div class="setting-info">
+                        <span>🇫🇷</span>
+                        <span>Français</span>
+                    </div>
+                    <i class="fas fa-check" style="color: transparent;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup Modal -->
+    <div class="modal" id="backupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>النسخ الاحتياطي</h2>
+                <button class="close-modal" onclick="document.getElementById('backupModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="backup-content">
+                <div class="backup-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>احتفظ بعبارة الاسترداد في مكان آمن</p>
+                </div>
+                <div class="seed-phrase" id="seedPhrase">
+                    <div class="seed-word">apple</div>
+                    <div class="seed-word">banana</div>
+                    <div class="seed-word">cherry</div>
+                    <div class="seed-word">dragon</div>
+                    <div class="seed-word">eagle</div>
+                    <div class="seed-word">forest</div>
+                    <div class="seed-word">garden</div>
+                    <div class="seed-word">house</div>
+                    <div class="seed-word">island</div>
+                    <div class="seed-word">jungle</div>
+                    <div class="seed-word">king</div>
+                    <div class="seed-word">lion</div>
+                </div>
+                <button class="confirm-btn" id="copySeed">
+                    <i class="fas fa-copy"></i> نسخ العبارة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="../js/wallet.js"></script>
+</body>
+</html>
