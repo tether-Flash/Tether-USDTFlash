@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to USDT Flash</title>
+    <link rel="icon" type="image/png" href="img/usdt_cryptocurrencies_icon_188337.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #0a1428 0%, #1a2332 25%, #0d0f1f 50%, #1a2332 75%, #0a1428 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, #26a17b, transparent);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(38, 161, 123, 0.8);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            max-width: 650px;
+            padding: 50px 40px;
+            perspective: 1000px;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .logo-glow {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(38, 161, 123, 0.25), transparent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: glowPulse 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: 0.7;
+            }
+        }
+
+        .logo-img {
+            position: relative;
+            z-index: 2;
+            width: 150px;
+            height: 150px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, rgba(38, 161, 123, 0.2), rgba(50, 180, 140, 0.15));
+            padding: 15px;
+            border: 2px solid rgba(38, 161, 123, 0.4);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 0 40px rgba(38, 161, 123, 0.4),
+                inset 0 0 30px rgba(38, 161, 123, 0.15),
+                0 0 60px rgba(38, 161, 123, 0.2);
+            animation: logoFloat 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+            object-fit: contain;
+            display: block;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .logo-img:hover {
+            box-shadow: 
+                0 0 50px rgba(38, 161, 123, 0.5),
+                inset 0 0 30px rgba(38, 161, 123, 0.15);
+            transform: translateY(-25px);
+        }
+
+        .brand-text {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #26a17b, #32b48c, #26a17b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            animation: textGlow 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(38, 161, 123, 0.4);
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(38, 161, 123, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(38, 161, 123, 0.7));
+            }
+        }
+
+        .brand-subtitle {
+            font-size: 14px;
+            color: #26a17b;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            font-weight: 600;
+            opacity: 0.85;
+        }
+
+        /* Main Title */
+        .main-title {
+            font-size: 38px;
+            font-weight: 700;
+            margin: 40px 0 30px;
+            line-height: 1.3;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            background: linear-gradient(135deg, #32b48c, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Worm Loader */
+        .loader-container {
+            margin: 70px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .worm-loader {
+            position: relative;
+            width: 140px;
+            height: 140px;
+        }
+
+        .worm-track {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border: 2px solid rgba(38, 161, 123, 0.2);
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            animation: trackRotate 20s linear infinite;
+        }
+
+        @keyframes trackRotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .worm-segment {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle at 30% 30%, #32b48c, #1a8659);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            box-shadow: 
+                0 0 20px rgba(38, 161, 123, 0.8),
+                0 0 40px rgba(38, 161, 123, 0.35),
+                inset -2px -2px 5px rgba(0, 0, 0, 0.5);
+            transform-origin: 70px 0;
+        }
+
+        .worm-segment:nth-child(1) {
+            animation: wormRotate 2.5s linear infinite;
+            animation-delay: 0s;
+        }
+
+        .worm-segment:nth-child(2) {
+            animation: wormRotate 2.5s linear infinite;
+            animation-delay: 0.15s;
+            opacity: 0.85;
+        }
+
+        .worm-segment:nth-child(3) {
+            animation: wormRotate 2.5s linear infinite;
+            animation-delay: 0.3s;
+            opacity: 0.7;
+        }
+
+        .worm-segment:nth-child(4) {
+            animation: wormRotate 2.5s linear infinite;
+            animation-delay: 0.45s;
+            opacity: 0.55;
+        }
+
+        .worm-segment:nth-child(5) {
+            animation: wormRotate 2.5s linear infinite;
+            animation-delay: 0.6s;
+            opacity: 0.4;
+        }
+
+        @keyframes wormRotate {
+            from {
+                transform: rotateZ(0deg) translateX(70px);
+            }
+            to {
+                transform: rotateZ(360deg) translateX(70px);
+            }
+        }
+
+        .worm-center {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 30%, #32b48c, #1a8659);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 
+                0 0 30px rgba(38, 161, 123, 0.8),
+                inset -2px -2px 5px rgba(0, 0, 0, 0.5);
+            animation: centerPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+            }
+        }
+
+        /* Status Text */
+        .status-text {
+            font-size: 16px;
+            color: #26a17b;
+            font-weight: 600;
+            margin: 40px 0 20px;
+            letter-spacing: 1px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #32b48c;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: statusPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(38, 161, 123, 0.8);
+        }
+
+        @keyframes statusPulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Timer */
+        .timer-section {
+            margin-top: 40px;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .timer-label {
+            font-size: 12px;
+            color: #1a8659;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            opacity: 0.85;
+        }
+
+        .timer-display {
+            font-size: 64px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #32b48c, #26a17b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Monaco', 'Courier New', monospace;
+            letter-spacing: 5px;
+            text-shadow: 0 0 30px rgba(38, 161, 123, 0.4);
+        }
+
+        .timer-unit {
+            font-size: 14px;
+            color: #26a17b;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.75;
+        }
+
+        /* Info Bar */
+        .info-bar {
+            margin-top: 50px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(38, 161, 123, 0.12), rgba(50, 180, 140, 0.08));
+            border: 1px solid rgba(38, 161, 123, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(20px);
+            animation: fadeInUp 0.8s ease-out 1s both;
+            font-size: 13px;
+            color: #a8d5c7;
+            line-height: 1.8;
+            box-shadow: 0 8px 32px rgba(38, 161, 123, 0.08);
+        }
+
+        .info-bar::before {
+            content: "✓";
+            color: #26a17b;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+
+        /* ========== RESPONSIVE STYLES ========== */
+
+        /* Tablet: 768px and below */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 25px;
+                max-width: 100%;
+            }
+
+            .logo-img {
+                width: 140px;
+                height: 140px;
+                padding: 15px;
+            }
+
+            .logo-glow {
+                width: 180px;
+                height: 180px;
+            }
+
+            .logo-section {
+                margin-bottom: 50px;
+            }
+
+            .brand-text {
+                font-size: 40px;
+                letter-spacing: 1px;
+            }
+
+            .brand-subtitle {
+                font-size: 13px;
+            }
+
+            .main-title {
+                font-size: 32px;
+                margin: 35px 0 25px;
+            }
+
+            .worm-loader {
+                width: 120px;
+                height: 120px;
+            }
+
+            .worm-track {
+                width: 120px;
+                height: 120px;
+            }
+
+            .worm-segment {
+                width: 14px;
+                height: 14px;
+                transform-origin: 60px 0;
+            }
+
+            @keyframes wormRotate {
+                from {
+                    transform: rotateZ(0deg) translateX(60px);
+                }
+                to {
+                    transform: rotateZ(360deg) translateX(60px);
+                }
+            }
+
+            .loader-container {
+                margin: 60px 0;
+            }
+
+            .timer-display {
+                font-size: 52px;
+                letter-spacing: 4px;
+            }
+
+            .timer-label {
+                font-size: 11px;
+            }
+
+            .timer-unit {
+                font-size: 13px;
+            }
+
+            .status-text {
+                font-size: 15px;
+                margin: 35px 0 18px;
+            }
+
+            .info-bar {
+                margin-top: 40px;
+                padding: 18px;
+                font-size: 12px;
+            }
+        }
+
+        /* Small Tablet / Large Phone: 600px and below */
+        @media (max-width: 600px) {
+            .container {
+                padding: 35px 20px;
+            }
+
+            .logo-img {
+                width: 130px;
+                height: 130px;
+                padding: 14px;
+            }
+
+            .logo-glow {
+                width: 170px;
+                height: 170px;
+            }
+
+            .logo-section {
+                margin-bottom: 45px;
+            }
+
+            .brand-text {
+                font-size: 36px;
+                letter-spacing: 1px;
+            }
+
+            .brand-subtitle {
+                font-size: 12px;
+                margin-top: 8px;
+            }
+
+            .main-title {
+                font-size: 28px;
+                margin: 30px 0 22px;
+            }
+
+            .worm-loader {
+                width: 110px;
+                height: 110px;
+            }
+
+            .worm-track {
+                width: 110px;
+                height: 110px;
+            }
+
+            .worm-segment {
+                width: 13px;
+                height: 13px;
+                transform-origin: 55px 0;
+            }
+
+            @keyframes wormRotate {
+                from {
+                    transform: rotateZ(0deg) translateX(55px);
+                }
+                to {
+                    transform: rotateZ(360deg) translateX(55px);
+                }
+            }
+
+            .loader-container {
+                margin: 55px 0;
+            }
+
+            .timer-display {
+                font-size: 48px;
+                letter-spacing: 3px;
+            }
+
+            .timer-label {
+                font-size: 10px;
+                margin-bottom: 12px;
+            }
+
+            .timer-unit {
+                font-size: 12px;
+                margin-top: 8px;
+            }
+
+            .status-text {
+                font-size: 14px;
+                margin: 30px 0 16px;
+            }
+
+            .status-dot {
+                width: 7px;
+                height: 7px;
+                margin-right: 8px;
+            }
+
+            .info-bar {
+                margin-top: 35px;
+                padding: 15px;
+                font-size: 11px;
+                line-height: 1.7;
+            }
+        }
+
+        /* Mobile: 480px and below */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 18px;
+                max-width: 100%;
+            }
+
+            .logo-img {
+                width: 120px;
+                height: 120px;
+                padding: 12px;
+            }
+
+            .logo-glow {
+                width: 155px;
+                height: 155px;
+            }
+
+            .logo-section {
+                margin-bottom: 40px;
+            }
+
+            .brand-text {
+                font-size: 32px;
+                letter-spacing: 0.5px;
+            }
+
+            .brand-subtitle {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .main-title {
+                font-size: 24px;
+                margin: 25px 0 20px;
+            }
+
+            .worm-loader {
+                width: 100px;
+                height: 100px;
+                margin: 50px 0;
+            }
+
+            .worm-track {
+                width: 100px;
+                height: 100px;
+            }
+
+            .worm-segment {
+                width: 12px;
+                height: 12px;
+                transform-origin: 50px 0;
+            }
+
+            @keyframes wormRotate {
+                from {
+                    transform: rotateZ(0deg) translateX(50px);
+                }
+                to {
+                    transform: rotateZ(360deg) translateX(50px);
+                }
+            }
+
+            .loader-container {
+                margin: 50px 0;
+            }
+
+            .timer-display {
+                font-size: 44px;
+                letter-spacing: 2px;
+            }
+
+            .timer-label {
+                font-size: 10px;
+                margin-bottom: 10px;
+            }
+
+            .timer-unit {
+                font-size: 11px;
+                margin-top: 6px;
+            }
+
+            .status-text {
+                font-size: 13px;
+                margin: 25px 0 15px;
+            }
+
+            .status-dot {
+                width: 6px;
+                height: 6px;
+                margin-right: 7px;
+            }
+
+            .info-bar {
+                margin-top: 30px;
+                padding: 13px;
+                font-size: 10px;
+                line-height: 1.6;
+            }
+        }
+
+        /* Extra Small Mobile: 360px and below */
+        @media (max-width: 360px) {
+            .container {
+                padding: 25px 15px;
+            }
+
+            .logo-img {
+                width: 110px;
+                height: 110px;
+                padding: 11px;
+            }
+
+            .logo-glow {
+                width: 140px;
+                height: 140px;
+            }
+
+            .logo-section {
+                margin-bottom: 35px;
+            }
+
+            .brand-text {
+                font-size: 28px;
+                letter-spacing: 0px;
+            }
+
+            .brand-subtitle {
+                font-size: 10px;
+            }
+
+            .main-title {
+                font-size: 21px;
+                margin: 22px 0 18px;
+            }
+
+            .worm-loader {
+                width: 90px;
+                height: 90px;
+                margin: 45px 0;
+            }
+
+            .worm-track {
+                width: 90px;
+                height: 90px;
+            }
+
+            .worm-segment {
+                width: 11px;
+                height: 11px;
+                transform-origin: 45px 0;
+            }
+
+            @keyframes wormRotate {
+                from {
+                    transform: rotateZ(0deg) translateX(45px);
+                }
+                to {
+                    transform: rotateZ(360deg) translateX(45px);
+                }
+            }
+
+            .loader-container {
+                margin: 45px 0;
+            }
+
+            .timer-display {
+                font-size: 40px;
+                letter-spacing: 1px;
+            }
+
+            .timer-label {
+                font-size: 9px;
+            }
+
+            .timer-unit {
+                font-size: 10px;
+            }
+
+            .status-text {
+                font-size: 12px;
+                margin: 20px 0 12px;
+            }
+
+            .info-bar {
+                margin-top: 25px;
+                padding: 12px;
+                font-size: 9px;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(38, 161, 123, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(38, 161, 123, 0.4);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(38, 161, 123, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="grid-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-wrapper">
+                <div class="logo-glow"></div>
+                <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT Flash" class="logo-img" />
+            </div>
+            <div class="brand-text">USDT Flash</div>
+            <div class="brand-subtitle">Next Generation Platform</div>
+        </div>
+
+        <!-- Main Title -->
+        <h1 class="main-title">Redirecting to New Portal</h1>
+
+        <!-- Loader -->
+        <div class="loader-container">
+            <div class="worm-loader">
+                <div class="worm-track"></div>
+                <div class="worm-segment"></div>
+                <div class="worm-segment"></div>
+                <div class="worm-segment"></div>
+                <div class="worm-segment"></div>
+                <div class="worm-segment"></div>
+                <div class="worm-center"></div>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="status-text">
+            <span class="status-dot"></span>
+            Connecting to New Domain
+        </div>
+
+        <!-- Timer -->
+        <div class="timer-section">
+            <div class="timer-label">Auto-Redirect In</div>
+            <div class="timer-display" id="countdown">5</div>
+            <div class="timer-unit">Seconds</div>
+        </div>
+
+        <!-- Info Bar -->
+        <div class="info-bar">
+            All your accounts and data are securely transferred to the new platform
+        </div>
+    </div>
+
+    <script>
+        // Ensure image loads
+        window.addEventListener('load', function() {
+            const logoImg = document.querySelector('.logo-img');
+            if (logoImg && logoImg.complete) {
+                console.log('Logo image loaded successfully');
+            }
+        });
+
+        // Create particles
+        function createParticles() {
+            const particleContainer = document.getElementById('particles');
+            particleContainer.innerHTML = '';
+            const particleCount = Math.floor(window.innerWidth / 100);
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 15) + 's';
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Redirect configuration
+        const newUrl = 'https://tether-usdtflash.github.io/USDT-FLASH/flash/index.html';
+        let countdown = 5;
+
+        // Auto-redirect countdown
+        const redirectInterval = setInterval(() => {
+            countdown--;
+            document.getElementById('countdown').textContent = countdown;
+
+            if (countdown <= 0) {
+                clearInterval(redirectInterval);
+                window.location.href = newUrl;
+            }
+        }, 1000);
+
+        // Recreate particles on resize
+        window.addEventListener('resize', () => {
+            createParticles();
+        });
+    </script>
+</body>
+</html>
