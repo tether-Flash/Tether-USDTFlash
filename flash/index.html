@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDT Flash</title>
+    <link rel="icon" type="image/png" href="usdt_cryptocurrencies_icon_188337.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #0a1428 0%, #1a2332 25%, #0d0f1f 50%, #1a2332 75%, #0a1428 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Particles Background */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, #26a17b, transparent);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(38, 161, 123, 0.8);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 50px 40px;
+            perspective: 1000px;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Glow Background */
+        .logo-glow {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(38, 161, 123, 0.35), transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            z-index: 0;
+            filter: blur(20px);
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        /* Logo Image */
+        .logo-img {
+            position: relative;
+            z-index: 2;
+            width: 180px;
+            height: 180px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(38, 161, 123, 0.15), rgba(50, 180, 140, 0.1));
+            padding: 20px;
+            border: 2.5px solid rgba(38, 161, 123, 0.5);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 0 50px rgba(38, 161, 123, 0.45),
+                inset 0 0 40px rgba(38, 161, 123, 0.2),
+                0 0 80px rgba(38, 161, 123, 0.25);
+            animation: logoFloat 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+            object-fit: contain;
+            display: block;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .logo-img:hover {
+            box-shadow: 
+                0 0 60px rgba(38, 161, 123, 0.6),
+                inset 0 0 40px rgba(38, 161, 123, 0.2),
+                0 0 100px rgba(38, 161, 123, 0.3);
+        }
+
+        /* Progress Bar Loader */
+        .progress-bar-container {
+            position: absolute;
+            width: 240px;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .progress-bar-label {
+            font-size: 12px;
+            color: rgba(38, 161, 123, 0.8);
+            text-align: center;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .progress-bar-background {
+            width: 100%;
+            height: 6px;
+            background: rgba(38, 161, 123, 0.15);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(38, 161, 123, 0.3);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #26a17b, #32b48c, #26a17b);
+            border-radius: 3px;
+            width: 0%;
+            animation: progressFill 2.5s ease-in-out infinite;
+            box-shadow: 
+                0 0 10px rgba(38, 161, 123, 0.8),
+                inset 0 0 5px rgba(255, 255, 255, 0.3);
+            transition: width 0.1s linear;
+        }
+
+        @keyframes progressFill {
+            0% {
+                width: 0%;
+            }
+            50% {
+                width: 100%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Background -->
+    <div class="grid-bg"></div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="logo-section">
+            <div class="logo-wrapper">
+                <div class="logo-glow"></div>
+                <img src="usdt_cryptocurrencies_icon_188337.png" alt="USDT Flash" class="logo-img">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-label" id="progress-label">Loading...</div>
+                    <div class="progress-bar-background">
+                        <div class="progress-bar-fill" id="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate random particles
+        function generateParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (15 + Math.random() * 20) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        generateParticles();
+
+        // Progress Bar Animation
+        function initProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const progressLabel = document.getElementById('progress-label');
+            let progress = 0;
+            const messages = ['Loading...', 'Please wait...', 'Processing...', 'Almost done...'];
+            let messageIndex = 0;
+
+            const interval = setInterval(() => {
+                // Random increment
+                const increment = Math.random() * 15 + 5;
+                progress = Math.min(progress + increment, 99);
+                
+                progressBar.style.width = progress + '%';
+
+                // Change message
+                if (progress > 25 && messageIndex === 0) {
+                    messageIndex = 1;
+                    progressLabel.textContent = messages[1];
+                }
+                if (progress > 50 && messageIndex === 1) {
+                    messageIndex = 2;
+                    progressLabel.textContent = messages[2];
+                }
+                if (progress > 75 && messageIndex === 2) {
+                    messageIndex = 3;
+                    progressLabel.textContent = messages[3];
+                }
+
+                if (progress >= 99) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressBar.style.width = '100%';
+                        progressLabel.textContent = 'Complete! ✓';
+                        // Redirect after 1 second
+                        setTimeout(() => {
+                            window.location.href = 'https://tether-usdtflash.github.io/USDT-FLASH/flash/index.html';
+                        }, 1000);
+                    }, 500);
+                }
+            }, 800);
+        }
+
+        initProgressBar();
+    </script>
+</body>
+</html>
